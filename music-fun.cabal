@@ -1,0 +1,63 @@
+name:                music-fun
+version:             0.1.0.0
+synopsis:            Initial project template from stack
+description:         Please see README.md
+homepage:            http://github.com/przembot/music-fun#readme
+license:             BSD3
+license-file:        LICENSE
+author:              Przemysław Kopański
+maintainer:          P.Kopanski@stud.elka.pw.edu.pl
+copyright:           2016 Przemysław Kopański
+category:            Web
+build-type:          Simple
+-- extra-source-files:
+cabal-version:       >=1.10
+
+library
+  hs-source-dirs:      src
+  exposed-modules:     Lib
+  build-depends:       base >= 4.7 && < 5
+                     , hnn
+                     , parsec
+                     , text
+                     , hmatrix
+  default-language:    Haskell2010
+  ghc-options:         -Wall -O2 -threaded
+
+executable music-fun-executor
+  hs-source-dirs:      app/executor
+  main-is:             Main.hs
+  ghc-options:         -Wall -O2 -threaded -rtsopts -with-rtsopts=-N
+  build-depends:       base
+                     , music-fun
+                     , hnn
+                     , parsec
+                     , hmatrix
+                     , text
+  default-language:    Haskell2010
+
+executable music-fun-datagen
+  hs-source-dirs:      app/datagen
+  main-is:             Main.hs
+  ghc-options:         -Wall -O2 -threaded -rtsopts -with-rtsopts=-N
+  build-depends:       base
+                     , music-fun
+                     , parsec
+                     , hmatrix
+                     , text
+                     , hnn
+                     , directory
+  default-language:    Haskell2010
+
+test-suite music-fun-test
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test
+  main-is:             Spec.hs
+  build-depends:       base
+                     , music-fun
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  default-language:    Haskell2010
+
+source-repository head
+  type:     git
+  location: https://github.com/przembot/music-fun
