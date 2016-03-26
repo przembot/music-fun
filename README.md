@@ -1,10 +1,10 @@
-### Next chord prediction
+# Next chord prediction
 
 Neural network trained on some songs (my advice: from one genre)
 will interactively propose you a further chord.
 
 
-# How to use
+### How to use
 
 ```
 stack build
