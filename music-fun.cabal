@@ -58,6 +58,9 @@ test-suite music-fun-test
   main-is:             Spec.hs
   build-depends:       base
                      , music-fun
+                     , parsec
+                     , text
+                     , hspec
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   default-language:    Haskell2010
 
