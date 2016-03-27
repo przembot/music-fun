@@ -22,7 +22,7 @@ getChord =
 
 main :: IO ()
 main = do
-  net <- loadNetwork "network.nn" :: IO (Network Double)
+  net <- loadNet "network.nn" :: IO (Network Double)
   forever $ do
     chord <- markSelected . unChord <$> getChord
     print . sortBy (\(_,v1) (_,v2) -> v2 `compare` v1)

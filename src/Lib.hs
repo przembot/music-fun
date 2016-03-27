@@ -6,6 +6,13 @@ import Text.Parsec
 import Data.Text (Text)
 import Data.List (elemIndex)
 
+import Codec.Compression.Zlib     (compress, decompress)
+import Data.Binary                (Binary(..), encode, decode)
+import Foreign.Storable           (Storable)
+import AI.HNN.FF.Network
+import qualified Data.ByteString as B
+import qualified Data.ByteString.Lazy as BL
+
 import Numeric.LinearAlgebra
 
 -- | Basic chord identifier
@@ -85,3 +92,13 @@ oneChord = do
      (Just c) -> return c
      _ -> unexpected "Cannot parse chord"
 
+
+-- Forcing lazy bytestring to be evaluated, so file IO operations
+-- will be closed before saving to the same file
+loadNet :: (Storable a, Element a, Binary a) => FilePath -> IO (Network a)
+loadNet fp = decode . decompress . BL.fromStrict <$> B.readFile fp
+{-# INLINE loadNet #-}
+
+saveNet :: (Storable a, Element a, Binary a) => FilePath -> Network a -> IO ()
+saveNet fp = BL.writeFile fp . compress . encode
+{-# INLINE saveNet #-}
