@@ -35,7 +35,11 @@ main = do
             else createNetwork 36 [18,22,30] 36
 
   input <- genSamples <$> readChords
-  saveNetwork fileName (trainNTimes 5000 0.4 tanh tanh' net input)
+  let
+    newnet = trainNTimes 5000 0.4 tanh tanh' net input
+  -- Forcing lazy bytestring to be evaluated, so file IO operations
+  -- will be closed before saving to the same file
+  newnet `seq` saveNetwork fileName newnet `seq` return ()
 
 
 readChords :: IO [Chord]
